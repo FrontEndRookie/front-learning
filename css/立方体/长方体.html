@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+    </main>
+</body>
+<style>
+    main{
+        display: flex;
+        width: 300px;
+        height: 300px;
+        transform-style: preserve-3d;
+        transform: perspective(900px) rotateX(-45deg);
+    }
+    div{
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        font-size: 30px;
+        display: flex;
+        justify-content:center;
+        align-items: center;
+        transform-origin: center center 100px;
+    }
+    div:nth-child(1){
+        background-color: #aaa;
+        width: 400px;
+    }
+    div:nth-child(2){
+        width: 400px;
+        height: 200px;
+        background-color: orange;
+        transform: translateZ(-200px);
+    }
+    div:nth-child(3){
+        background-color: red;
+        transform-origin:left ;
+        transform: rotateY(90deg);
+    }
+    div:nth-child(4){
+        background-color: silver;
+        transform-origin: right;
+        transform: translateX(200px) rotateY(-90deg);
+    }
+    div:nth-child(5){
+        width: 400px;
+        background-color: pink;
+        transform-origin: top;
+        transform: rotateX(-90deg);
+    }
+    div:nth-child(6){
+        width: 400px;
+        background-color: purple;
+        transform-origin: bottom;
+        transform: rotateX(90deg);
+    }
+    body:hover main {
+        transform:perspective(900px) rotateY(180deg) rotateX(185deg);
+        transition: 2s;
+        
+    }
+</style>
+</html>

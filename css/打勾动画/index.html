@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .circle {
+        stroke-dasharray: 1194;
+        stroke-dashoffset: 1194;
+        animation: circleShow 1s ease-in forwards;
+      }
+      .tick {
+        stroke-dasharray: 350;
+        stroke-dashoffset: 350;
+        animation: tickShow 1s ease-in 1s forwards;
+      }
+      @keyframes circleShow {
+        0% {
+          stroke-dashoffset: 1194;
+        }
+        100% {
+          stroke-dashoffset: 2388;
+        }
+      }
+      @keyframes tickShow {
+        0% {
+          stroke-dashoffset: 350;
+        }
+        100% {
+          stroke-dashoffset: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="800" height="800">
+      <circle
+        fill="none"
+        stroke="#68e534"
+        stroke-width="20"
+        cx="200"
+        cy="200"
+        r="190"
+        class="circle"
+        stroke-linecap="round"
+        transform="rotate(-90 200 200)"
+      ></circle>
+      <polyline
+        fill="none"
+        stroke="#68e534"
+        stroke-width="20"
+        points="88,214 173,284 304,138"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="tick"
+      ></polyline>
+    </svg>
+  </body>
+</html>

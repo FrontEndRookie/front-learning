@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    class LRU {
+      #cache;
+      #maxLen;
+      constructor(maxLen) {
+        this.#cache = new Map();
+        this.#maxLen = maxLen;
+      }
+      get(key) {
+        if (this.#cache.has(key)) {
+          const value = this.#cache.get(key);
+          this.#cache.delete(key);
+          this.#cache.set(key, value);
+          return value;
+        } else {
+          return null;
+        }
+      }
+      set(key, value) {
+        if (this.#cache.has(key)) {
+          this.#cache.delete(key);
+        }
+
+        this.#cache.set(key, value);
+        if (this.#cache.size >= this.#maxLen) {
+          this.#cache.delete(this.#cache.keys().next().value);
+        }
+      }
+    }
+  </script>
+</html>

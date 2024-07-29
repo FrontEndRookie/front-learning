@@ -1,0 +1,32 @@
+$themes: (
+  dark: (
+    textColor: #fff,
+    bgColor: #000,
+  ),
+  light: (
+    textColor: #000,
+    bgColor: #fff,
+  ),
+);
+
+$curTHeme: dark;
+@mixin useTheme() {
+  @each $theme, $index in $themes {
+    $curTHeme: $theme !global;
+    html[data-theme="#{$theme}"] & {
+      @content;
+    }
+  }
+}
+
+@function getVar($name) {
+  $key: map-get($themes, $curTHeme);
+  @return map-get($key, $name);
+}
+
+.item {
+  @include useTheme {
+    color: getVar(textColor);
+    background-color: getVar(bgColor);
+  }
+}

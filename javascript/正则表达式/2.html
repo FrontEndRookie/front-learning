@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    // 原子表
+    let reg1 = /[123456]/;
+    let hd1 = "123456";
+    console.log(hd1.match(reg1)); //"1"
+
+    // 原子组
+    let reg2 = /(123)/;
+    console.log(hd1.match(reg2)); //["123", "123", index: 0, input: "123456", groups: undefined]
+  </script>
+  <script>
+    //转义字符
+    let str3 = "23.23";
+    // .表示除换行所有字符  \.表示字符.
+    console.log(/\d+\.\d+/.test(str3));
+    let reg = new RegExp("\\d+\\.\\d+");
+    console.log(reg.test(str3));
+
+    let url = "https://www.baidu.com";
+    console.log(/https?:\/\/\w+\.\w+\.\w+/.test(url));
+  </script>
+  <script>
+    // 元字符
+    // \d 匹配数字
+    let hd4 = "hide 2024";
+    console.log(hd4.match(/\d+/)); //2024
+    // |D 除了数字
+    console.log(hd4.match(/\D+/)); // hide
+    // \s 匹配空白
+    console.log(/\s+/.test(hd4)); // true
+    // |S 除了空白
+    console.log(hd4.match(/\S+/g)); // hide 2024
+    // \w 匹配数字字母下划线
+    console.log(hd4.match(/\w+/g)); // hide 2024
+    let email = "230230@qq.com";
+    console.log(email.match(/^\w+@\w+\.\w+$/));
+    // \W除了数字字母下划线
+    console.log("hdcms@".match(/\W/)); // @
+
+    // [\s\S] [\d\D] [\w\W] 匹配所有字符
+  </script>
+</html>

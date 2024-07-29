@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function selectSort(arr){
+        for(let i =0;i< arr.length-1; i++){
+            let cIdx = i;
+            for(let j=i;j<arr.length;j++){
+                if(arr[j]<arr[cIdx]) {
+                    cIdx = j
+                }
+            }
+            if(i != cIdx){
+                let temp = arr[cIdx];
+                arr[cIdx] = arr[i];
+                arr[i] = temp;
+            }
+        }
+        return arr
+    }
+    let arr = [2,4,3,5,1,7,6]
+    console.log(selectSort(arr))
+</script>
+</html>

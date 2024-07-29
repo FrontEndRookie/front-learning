@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    // nodejs koa 洋葱模型
+    class TaskPro {
+      _taskList = [];
+      _isRunning = false;
+      _index = 0;
+      addTask(task) {
+        this._taskList.push(task);
+      }
+      async _run() {
+        if (this._isRunning) return;
+        this._isRunning = true;
+        await this._runTask();
+      }
+      async _runTask() {
+        if (this._index >= this._taskList.length) {
+          this._isRunning = false;
+          this._index = 0;
+          this._taskList = [];
+          return;
+        }
+        let cIndex = this._index;
+        const task = this._taskList[this._index];
+        await task(this._next.bind(this));
+        if (this._index == cIndex) {
+          await this._next();
+        }
+      }
+      async _next() {
+        this._index++;
+        await this._runTask();
+      }
+    }
+
+    const t = new TaskPro();
+    t.addTask(async (next) => {
+      console.log(1, "start");
+      await next();
+      console.log(1, "end");
+    });
+    t.addTask(() => {
+      console.log(2);
+    });
+    t.addTask(() => {
+      console.log(3);
+    });
+    t._run();
+  </script>
+</html>

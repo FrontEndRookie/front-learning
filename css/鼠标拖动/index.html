@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            overflow: auto;
+            width: 80vw;
+            height: 80vh;
+        }
+        div{
+            width:500px;
+            height: 500px;
+            border:1px solid pink;
+            margin: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+    </div>
+    
+</body>
+<script>
+    const ele = document.getElementById('container');
+ele.style.cursor = 'grab';
+
+let pos = { top: 0, left: 0, x: 0, y: 0 };
+
+const mouseDownHandler = function (e) {
+  ele.style.cursor = 'grabbing';
+  ele.style.userSelect = 'none';
+
+  pos = {
+    left: ele.scrollLeft,
+    top: ele.scrollTop,
+    // Get the current mouse position
+    x: e.clientX,
+    y: e.clientY,
+  };
+
+  document.addEventListener('mousemove', mouseMoveHandler);
+  document.addEventListener('mouseup', mouseUpHandler);
+};
+
+const mouseMoveHandler = function (e) {
+  // How far the mouse has been moved
+  const dx = e.clientX - pos.x;
+  const dy = e.clientY - pos.y;
+
+  // Scroll the element
+  ele.scrollTop = pos.top - dy;
+  ele.scrollLeft = pos.left - dx;
+};
+
+const mouseUpHandler = function () {
+  ele.style.cursor = 'grab';
+  ele.style.removeProperty('user-select');
+
+  document.removeEventListener('mousemove', mouseMoveHandler);
+  document.removeEventListener('mouseup', mouseUpHandler);
+};
+
+// Attach the handler
+ele.addEventListener('mousedown', mouseDownHandler);
+</script>
+</html>

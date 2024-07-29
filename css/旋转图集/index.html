@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+    <div>
+        <img src="./12.jpeg" alt="">
+    </div>
+<div>
+    <img src="./13.jpeg" alt="">
+</div>
+<div>
+    <img src="./14.jpeg" alt="">
+</div>
+<div>
+    <img src="./15.jpeg" alt="">
+</div>
+</main>
+</body>
+<style>
+    body{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    main{
+        margin-top: 200px;
+        display: flex;
+        width: 200px;
+        height: 200px;
+        transform-style: preserve-3d;
+        transform-origin: center center -200px;
+        transform: perspective(900px);
+        transition: 1s;
+    }
+    div{
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        overflow: hidden;
+    }
+    div:nth-child(1){
+        transform-origin: center center -200px;
+        transform: rotateY(90deg);
+    }
+    div:nth-child(2){
+        transform-origin: center center -200px;
+        transform: rotateY(180deg);
+    }
+    div:nth-child(3){
+        transform-origin: center center -200px;
+        transform: rotateY(270deg);
+    }
+    div:nth-child(4){
+        transform-origin: center center -200px;
+        transform: rotateY(360deg);
+    }
+    img{
+        width: 100%;
+        height: 100%;
+    }
+   
+</style>
+</html>

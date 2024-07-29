@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    // 原子组
+    let hd = `
+    <h1>hide on bush</h1>
+    <h2>hide on bush</h2>
+
+    `;
+    let reg = /<(h[1-6])>[\s\S]*<\/\1>/gi;
+    console.log(hd.match(reg));
+  </script>
+  <script>
+    // email验证
+    let email = "1249888860@qq.com";
+    let reg2 = /^[\w-]+@[\w-]+\.(com|org|cc|cn)$/i;
+  </script>
+  <script>
+    //h标签替换成p标签
+    let hd3 = `
+    <h1>hide on bush</h1>
+    <h2>hide on bush</h2>
+
+    `;
+    let reg3 = /<(h[1-6])>([\s\S]*)<\/\1>/gi;
+    console.log(hd3.replace(reg3, `<p>$2</p>`));
+  </script>
+  <script>
+    let hd4 = `https://www.baidu.com`;
+    let reg4 = /^https?:\/\/\w+\.\w+\.(?:com|cn)$/i;
+    // ?:表示忽略记录该分组
+    console.log(hd4.match(reg4));
+  </script>
+  <script>
+    let hd5 = "hdddd";
+    let reg5 = /hd+/; // +: 一个或多个
+    let regs5 = /hd*/; // *: 0个或多个
+    let regss5 = /hd{1,2}/; // {n,m}: n到m个
+    let regsss5 = /hd{1,}/; // {n,}: n个或多个
+
+    console.log(hd5.match(reg5));
+
+    //匹配电话号
+    let phone = "010-999999999";
+    console.log(phone.match(/^0\d{2,3}-\d{7,8}$/));
+  </script>
+  <script>
+    // 密码匹配 必须包含数字大小写字母 6-15位
+    let pwd = "aZ1234";
+    let regList = [
+      /^[a-zA-Z0-9]{6,15}$/g,
+      /[a-z]{1,}/,
+      /[A-Z]{1,}/,
+      /[0-9]{1,}/,
+    ];
+    console.log(regList.every((item) => item.test(pwd)));
+  </script>
+  <script>
+    //禁止贪婪
+    let hd6 = `hdddd`;
+    // 加一个？表示倾向少的一方
+    console.log(hd6.match(/hd??/)); //h
+    console.log(hd6.match(/hd*?/)); // h
+    console.log(hd6.match(/hd{2,100}?/)); //hdd
+  </script>
+  <script>
+    //实例:span标签替换成p标签
+    let hd7 = `
+    <span>hide on bush</span>
+    <span>hide on bush</span>
+
+    `;
+    //需要禁止贪婪 否则 [\s\S]匹配会从hide开始到最后</span>
+    let reg7 = /<span>([\s\S]*?)<\/span>/gi;
+    console.log(hd7.replace(reg7, `<p>$1</p>`));
+  </script>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    console.time('for')
+    let forArray = new Array(1000000)
+    let forResult = 0
+    for(let i=0,j=forArray.length;i<j;i++){
+        forResult+= 10
+    }
+    console.log(forResult)
+    console.timeEnd('for')
+
+
+    let forInArray = new Array(1000000)
+    forInArray.fill(1)
+    console.time('forin')
+    let forInResult = 0
+    for(let i in forInArray){
+        forInResult+= 10
+    }
+    console.log(forInResult)
+    console.timeEnd('forin')
+
+
+    console.time('forof')
+    let forOfArray = new Array(1000000)
+    let forOfResult = 0
+    for(let i of forOfArray){
+        forOfResult+= 10
+    }
+    console.log(forOfResult)
+    console.timeEnd('forof')
+
+
+    let forEachArray = new Array(1000000)
+    forEachArray.fill(1)
+    console.time('foreach')
+    let forEachResult = 0
+    forEachArray.forEach(i=>{forEachResult+=10})
+    console.log(forEachResult)
+    console.timeEnd('foreach')
+
+
+    let forMapArray = new Array(1000000)
+    forMapArray.fill(1)
+    console.time('map')
+    let forMapResult = 0
+    forMapArray.map(item=>{forMapResult+=10})
+    console.log(forMapResult)
+    console.timeEnd('map')
+
+
+    let forSomeArray = new Array(1000000)
+    forSomeArray.fill(1)
+    console.time('some')
+    let forSomeResult = 0
+    forSomeArray.some(item=>{forSomeResult+=10})
+    console.log(forSomeResult)
+    console.timeEnd('some')
+
+
+    let forEveryArray = new Array(1000000)
+    forEveryArray.fill(1)
+    console.time('every')
+    let forEveryResult = 0
+    forEveryArray.every(item=>{forEveryResult+=10;return true})
+    console.log(forEveryResult)
+    console.timeEnd('every')
+
+
+    let forReduceArray = new Array(1000000)
+    forReduceArray.fill(1)
+    console.time('reduce')
+    let forReduceResult = forReduceArray.reduce((prev,i)=>{prev+=i; return prev},0)
+    console.log(forReduceResult)
+    console.timeEnd('reduce')
+
+
+    let forFilterArray = new Array(1000000)
+    forFilterArray.fill(1)
+    console.time('filter')
+    let forFilterResult = 0
+    forFilterArray.filter(item=>{forFilterResult+=10;return item==1})
+    console.log(forFilterResult)
+    console.timeEnd('filter')
+
+
+    let forFindArray = new Array(1000000)
+    forFindArray.fill(1)
+    console.time('find')
+    let forFindResult = 0
+    forFindArray.find(item=>{forFindResult+=10 ;return false})
+    console.log(forFindResult)
+    console.timeEnd('find')
+
+
+    let forFindIndexArray = new Array(1000000)
+    forFindIndexArray.fill(1)
+    console.time('findIndex')
+    let forFindIndexResult = 0
+    forFindIndexArray.findIndex(item=>{forFindIndexResult+=10;return false})
+    console.log(forFindIndexResult)
+    console.timeEnd('findIndex')
+
+
+    let forincludesArray = new Array(1000000)
+    forincludesArray.fill(1)
+    console.time('includes')
+    forincludesArray.includes(2)
+    console.timeEnd('includes')
+
+//index.html:58 for: 7.692138671875 ms
+//index.html:69 forin: 119.287841796875 ms
+//index.html:79 forof: 13.007080078125 ms
+//index.html:88 foreach: 8.60986328125 ms
+//index.html:97 map: 9.416748046875 ms
+//index.html:106 some: 6.592041015625 ms
+//index.html:115 every: 9.053955078125 ms
+//index.html:123 reduce: 6.611083984375 ms
+//index.html:132 filter: 23.067138671875 ms
+//index.html:141 find: 6.60693359375 ms
+//index.html:150 findIndex: 7.02001953125 ms
+//index.html:157 includes: 0.21484375 ms
+</script>
+</html>

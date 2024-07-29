@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <view class="waterfall">
+        <view class="item">1</view>
+        <view class="item">2</view>
+        <view class="item">3</view>
+        <view class="item">4</view>
+        <view class="item">5</view>
+        <view class="item">6</view>
+        <view class="item">7</view>
+        <view class="item">8</view>
+        <view class="item">9</view>
+        <view class="item">10</view>
+        <view class="item">2</view>
+        <view class="item">3</view>
+        <view class="item">4</view>
+        <view class="item">5</view>
+        <view class="item">6</view>
+        <view class="item">7</view>
+        <view class="item">8</view>
+        <view class="item">9</view>
+        <view class="item">10</view>
+        <view class="item">3</view>
+        <view class="item">4</view>
+        <view class="item">5</view>
+        <view class="item">6</view>
+        <view class="item">7</view>
+        <view class="item">8</view>
+        <view class="item">9</view>
+        <view class="item">1</view>
+        <view class="item">2</view>
+        <view class="item">3</view>
+        <view class="item">4</view>
+        <view class="item">5</view>
+        <view class="item">6</view>
+        <view class="item">7</view>
+        <view class="item">8</view>
+        <view class="item">9</view>
+        <view class="item">2</view>
+        <view class="item">3</view>
+        <view class="item">4</view>
+        <view class="item">5</view>
+        <view class="item">6</view>
+        <view class="item">2</view>
+        <view class="item">3</view>
+        <view class="item">4</view>
+        <view class="item">5</view>
+        <view class="item">6</view>
+        <view class="item">7</view>
+        <view class="item">8</view>
+        <view class="item">9</view>
+        <view class="item">2</view>
+        <view class="item">3</view>
+        <view class="item">4</view>
+        <view class="item">5</view>
+      </view>
+</body>
+<style>
+.waterfall {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);  
+  grid-gap: 0.25em; 
+  grid-auto-flow: row dense;  
+  grid-auto-rows: 20px;  
+}
+.waterfall .item {
+  width: 100%;
+  background: #222;
+  color: #ddd;
+}
+.waterfall .item:nth-of-type(3n+1) {
+  grid-row: auto / span 5;
+}
+.waterfall .item:nth-of-type(3n+2) {
+  grid-row: auto / span 6;
+}
+.waterfall .item:nth-of-type(3n+3) {
+  grid-row: auto / span 8;
+}
+
+</style>
+</html>

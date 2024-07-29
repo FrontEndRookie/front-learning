@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    class BF {
+      maxR = 10;
+      runR = 0;
+      currentIndex = 0;
+      constructor(requestList, maxR) {
+        this.requestList = requestList;
+        this.maxR = maxR;
+      }
+      promiseDeal(url, index) {
+        this.runR++;
+        this.currentIndex++;
+        let copIndex = index;
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            console.log(this.currentIndex, copIndex);
+            resolve(url);
+          }, 1000 + 500 * Math.random());
+        }).finally(() => {
+          this.runR--;
+          if (this.currentIndex) {
+            this.run();
+          }
+        });
+      }
+      run() {
+        while (
+          this.currentIndex < this.requestList.length &&
+          this.runR < this.maxR
+        ) {
+          this.promiseDeal(
+            this.requestList[this.currentIndex],
+            this.currentIndex
+          );
+        }
+      }
+    }
+    let arr = new Array(100).fill("www.baidu.com");
+    let bf = new BF(arr, 5);
+    bf.run();
+  </script>
+</html>

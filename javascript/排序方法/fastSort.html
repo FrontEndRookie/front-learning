@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function fastSort(arr){
+        let len = arr.length
+        if(len === 0 )  return arr;
+        console.log(arr)
+        const middleIndex = Math.floor(len/2)
+        const middleData = arr.splice(middleIndex,1)[0]
+
+        const left = []
+        const right = []
+        for( let i =0; i<arr.length; i++ ){
+            const val = arr[i]
+            if( val < middleData ){
+                left.push(val)
+            }  else {
+                right.push(val)
+            }
+        }
+        return fastSort(left).concat([middleData],fastSort(right))
+    }
+//     function fastSort(arr) {
+//     const len = arr.length
+//     if (len === 0) return arr
+
+//     const midIndex = Math.floor(len / 2)
+//     const midValue = arr.splice(midIndex, 1)[0]
+
+//     const left = []
+//     const right = []
+
+//     // 注意： splice 会修改原数组，所以用 arr.length
+//     for (let i = 0; i < arr.length; i++) {
+//         const n = arr[i]
+//         if (n < midValue) {
+//             left.push(n)
+//         } else {
+//             right.push(n)
+//         }
+//     }
+//     return fastSort(left).concat([midValue], fastSort(right))
+// }
+
+    console.log(fastSort([2,9,4,1,5,3,7,8,6]))
+</script>
+</html>

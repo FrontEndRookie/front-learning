@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script src="./deepClone.js"></script>
+  <script src="./arrayMethods.js"></script>
+  <script>
+    let testObject = { test: true };
+    let tArray = [{ a: 1 }, { a: 2 }, { a: 3 }];
+    let flatA = [1, 2, [3, 4, 5, [6, 7, [8, 9]]]];
+    console.log(flatA.myFlat());
+    //     tArray.forEach((item,index,array)=>{
+    //         console.log(this)
+    //         item.a++},testObject)
+    //     tArray.myForEach(function(item,index,array){
+    //         item.a++
+    //         console.log(this)
+    //         console.log(item,index,array)
+    //     },testObject)
+
+    //     let testMap = tArray.myMap(function(item,index,array){
+    //         item.a += 10
+    //         console.log(this)
+    //         console.log(item,index,array)
+    //         return item
+    //     },testObject)
+    //     console.log(testMap)
+
+    //     let testFilter = tArray.myFilter(function(item,index,array){
+    //         console.log(this)
+    //         console.log(item,index,array)
+    //         return item.a == 2
+    //     },testObject)
+    //     console.log(testFilter)
+
+    //     let testEvery = tArray.every(function(item,index,array){
+    //         console.log(this);
+    //         console.log(item,index,array)
+    //         return item.a == 2
+    //     },testObject)
+    //     console.log(testEvery)
+
+    //     let testSome = tArray.some(function(item,index,array){
+    //         console.log(this);
+    //         console.log(item,index,array)
+    //         return item.a == 2
+    //     },testObject)
+    //     console.log(testSome)
+
+    //     let array = [1,2,3,4,5]
+    //    let reduceResult = array.myReduce((prev,item,index,array)=>{
+    //     console.log(prev)
+    //         return prev+=item
+    //     },0)
+    //     console.log(reduceResult)
+  </script>
+  <script></script>
+</html>

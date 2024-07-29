@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+</body>
+<script>
+    /** @type {HTMLCanvasElement} */
+class Utils {
+    // static randomIntFromRange(low, high) {
+    //     return Math.floor(Math.random() * (high - low + 1) + low);
+    // }
+
+    static randomDoubleFromRange(low, high) {
+        return Math.random() * (high - low + 1) + low;
+    }
+
+    static randomColors(colors) {
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // static getDistance(x1, y1, x2, y2) {
+    //     let dx = x1 - x2;
+    //     let dy = y1 - y2;
+    //     return Math.sqrt(dx * dx + dy * dy);
+    // }
+}
+
+class Ball {
+    constructor(obj) {
+        this.x = obj.x;
+        this.y = obj.y;
+        this.radius = obj.radius;
+        this.color = obj.color;
+        this.canvas = obj.canvas;
+        this.ctx = obj.ctx;
+        this.mouse = obj.mouse;
+        this.theta = Utils.randomDoubleFromRange(0, Math.PI * 2);
+        this.speed = 0.05;
+        this.dragSpeed = 0.05;
+        this.distance = Utils.randomDoubleFromRange(70, 100);
+        this.lastMouse = { x: obj.x, y: obj.y };
+    }
+
+    draw(lastPosition) {
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = this.color;
+        this.ctx.lineWidth = this.radius;
+        // this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        this.ctx.moveTo(lastPosition.x, lastPosition.y);
+        this.ctx.lineTo(this.x, this.y);
+        this.ctx.stroke();
+        // this.ctx.fill();
+        this.ctx.closePath();
+    }
+
+    update() {
+        let lastPosition = {
+            x: this.x,
+            y: this.y,
+        };
+
+        this.lastMouse.x += (this.mouse.x - this.lastMouse.x) * this.dragSpeed;
+        this.lastMouse.y += (this.mouse.y - this.lastMouse.y) * this.dragSpeed;
+
+        this.x = this.lastMouse.x + Math.cos(this.theta) * this.distance;
+        this.y = this.lastMouse.y + Math.sin(this.theta) * this.distance;
+        this.theta += this.speed;
+        this.draw(lastPosition);
+    }
+}
+
+class RotationBall {
+    constructor() {
+        this.canvas = document.getElementById("canvas");
+        this.ctx = this.canvas.getContext("2d");
+        this.canvas.width = innerWidth;
+        this.canvas.height = innerHeight;
+        this.balls = [];
+        this.ball;
+
+        // 颜色
+        this.colorArray = ["#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#9400D3"];
+
+        // 鼠标位置
+        this.mouse = {
+            x: innerWidth / 2,
+            y: innerHeight / 2,
+        };
+
+        this.eventFn();
+        this.init();
+        this.animate();
+    }
+
+    init() {
+        for (let i = 0; i < 50; i++) {
+            let color = Utils.randomColors(this.colorArray);
+            this.balls.push(
+                new Ball({
+                    x: this.canvas.width / 2,
+                    y: this.canvas.height / 2,
+                    radius: 3,
+                    color,
+                    canvas: this.canvas,
+                    ctx: this.ctx,
+                    mouse: this.mouse,
+                })
+            );
+        }
+    }
+
+    eventFn() {
+        addEventListener("mousemove", (event) => {
+            this.mouse.x = event.clientX;
+            this.mouse.y = event.clientY;
+        });
+
+        addEventListener("resize", () => {
+            this.canvas.width = innerWidth;
+            this.canvas.height = innerHeight;
+            // this.init();
+        });
+    }
+
+    animate() {
+        requestAnimationFrame(() => this.animate());
+        this.ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        for (let ball of this.balls) {
+            ball.update();
+        }
+    }
+}
+
+new RotationBall();
+
+</script>
+</html>

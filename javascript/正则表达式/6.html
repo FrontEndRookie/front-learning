@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main>hide on bush</main>
+    <div class="aList">
+      <a href="https://www.baidu.com"> 百度 </a>
+      <a href="https://www.yahoo.com">雅虎</a>
+    </div>
+  </body>
+  <script>
+    let str = "hide-on/bush";
+    console.log(str.search("hide")); //0
+    console.log(str.split(/[-\/]/)); //['hide', 'on', 'bush']
+    console.log(str.replace(/\//g, "-")); //hide-on-bush
+
+    let phone = "(010)999999 (020)888888";
+    let reg = /\((\d{3,4})\)(\d{5,8})/g;
+    console.log(phone.replace(reg, "$1-$2"));
+
+    let hds = "=hide=";
+    // $' 表示匹配到的字符串之前的字符串
+    // $& 表示匹配到的字符串
+    // $` 表示匹配到的字符串之后的字符串
+
+    console.log(hds.replace(/hide/, "$`$'$&")); //===hide=
+
+    const main = document.querySelector("main");
+    console.log(main.innerHTML);
+
+    main.innerHTML = main.innerHTML.replace(
+      /hide/g,
+      '<a href="www.baidu.com">$&</a>'
+    );
+    console.log(main.innerHTML);
+  </script>
+  <script>
+    // 原子组别名
+    let hd3 = `<h1>xxxxx</h1>
+    <span>xxxxx</span>
+    <h2>xxxxx</h2>
+    `;
+    const reg3 = /<(h[1-6])>(?<con>.*?)<\/\1>/gi;
+    console.log(hd3.replace(reg3, "<h4>$<con></h4>"));
+  </script>
+  <script>
+    // 断言匹配
+    let str4 = "hideon hidebuon";
+    let reg4 = /hide(?=on)/g; //?=表示后面是on的
+    console.log(str4.replace(reg4, "show")); //showon hidebuon
+    let regs4 = /(?<=bu)on/g; //?<=bu表示前面是bu的
+    console.log(str4.replace(regs4, "off")); //hideon hidebuoff
+    let regss4 = /hide(?!on)/g; //?!表示后面不是on的
+    console.log(str4.replace(regss4, "show")); //showon hidebuon
+    let regsss4 = /(?<!hide)on/g; //?<!表示前面不是hide的
+    console.log(str4.replace(regsss4, "off")); //hideon hidebuoff
+
+  </script>
+  <script>
+    //替换a标签href
+    const aList = document.querySelector(".aList");
+    const reg5 = /(?<=href=(['"])).*(?=\1)/gi;
+    aList.innerHTML = aList.innerHTML.replace(reg5, "www.test.com");
+  </script>
+  <script>
+    // 电话号后四位模糊
+    let phones = "15023339898";
+    let reg6 = /^(\d{7})(\d{4})$/;
+    console.log(phones.replace(reg6, "$1****"));
+
+    let userMes = `xxx手机号：15023339898 xxxx手机号: 15024449898`
+    let regs6 = /(?<=\d{7})\d{4}/g
+    console.log(userMes.replace(regs6, "****"))
+  </script>
+  <script>
+    //限制不能包涵指定字符
+    const mes = 'hide on bush'
+    const mes2 = 'hide  bush'
+    const reg7 = /^(?!.*on.*).*/gi
+    console.log(mes.match(reg7))
+    console.log(mes2.match(reg7))
+  </script>
+  <script>
+    const mess =`
+    <a href="https://www.baidu.com">百度</a>
+    <a href="https://oss.baidu.com">bd</a>
+    <a href="https://cdn.baidu.com">bd</a>
+    `
+    const reg8 = /https:\/\/([a-z]+)?(?<!oss)\..+?(?=com)/g
+    console.log(mess.match(reg8))
+  </script>
+</script>
+</html>

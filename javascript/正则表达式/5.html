@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>xxxxxxxx</h1>
+    <h2>xxxxxxxx</h2>
+    <h1>mmmmm</h1>
+  </body>
+  <script>
+    //全局匹配
+    let reg = /<(h[1-6])>([\s\S]*?)<\/\1>/gi;
+    const body = document.body;
+    const hd = body.innerHTML.matchAll(reg);
+    console.log(hd);
+    const content = [];
+    for (const iterator of hd) {
+      content.push(iterator[2]);
+    }
+    console.table(content);
+  </script>
+  <script>
+    String.prototype.myMatchAll = function (reg) {
+      let res = this.match(reg);
+      console.log(res, "res");
+      if (res) {
+        let str = this.replace(res[0], "^".repeat(res[0].length));
+        console.log(str, "str");
+        let match = str.myMatchAll(reg) || [];
+        return [res, ...match];
+      }
+    };
+    let hd2 = "huuuhdddd";
+    console.log(hd2.match(/u/i));
+    // console.log(hd2.myMatchAll(/(u)/i));
+  </script>
+</html>

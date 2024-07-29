@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="mutatation">aaa</div>
+    <button id="button">添加dom</button>
+  </body>
+  <script>
+    document.getElementById("button").onclick = () => {
+      let domS = document.getElementById("mutatation");
+      domS.innerHTML += "123";
+      domS.style.color = "pink";
+      // for (let i = 0; i < 10; i++) {
+      //   let node = document.createElement("LI");
+      //   let textnode = document.createTextNode("Water" + i);
+      //   node.appendChild(textnode);
+      //   domS.appendChild(node);
+      // }
+    };
+
+    //选择一个需要观察的节点
+    var targetNode = document.getElementById("mutatation");
+
+    // 设置observer的配置选项
+    var config = {
+      attributes: true, //观察目标属性的改变
+      attributeOldValue: true, //同上
+      // attributeFilter: ["id"], //设置监听属性
+      characterData: true, //监听dom中数据的变化
+      characterDataOldValue: true, //设置之后 下面callback函数的mutation打印出来会有oldValue值
+      childList: true, //观察目标子节点的变化，比如添加或者删除目标子节点，不包括修改子节点以及子节点后代的变化
+      subtree: false, //目标以及目标的后代改变都会观察 否则不观察子元素的变化
+    };
+
+    // 当节点发生变化时的需要执行的函数
+    var callback = (mutationsList, observer) => {
+      for (var mutation of mutationsList) {
+        console.log(mutation);
+        if (mutation.type == "characterData") {
+          console.log("节点数据变化");
+        } else if (mutation.type == "attributes") {
+          console.log(mutation.attributeName + "属性发生变化");
+        }
+      }
+    };
+
+    // 创建一个observer示例与回调函数相关联
+    var observer = new MutationObserver(callback);
+
+    //使用配置文件对目标节点进行观测
+    observer.observe(targetNode, config);
+
+    // 停止观测
+    // observer.disconnect()
+  </script>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      padding-top: 20px;
+    }
+    .box {
+      width: 200px;
+      height: 200px;
+      border: 10px solid pink;
+      padding: 20px;
+    }
+    .scrollBox {
+      width: 200px;
+      height: 200px;
+      overflow: auto;
+    }
+    .scrollItem {
+      height: 1000px;
+    }
+  </style>
+  <body>
+    <div>
+      <div class="box"></div>
+    </div>
+    <div class="scrollBox">
+      <div class="scrollItem"></div>
+    </div>
+  </body>
+  <script>
+    let box = document.querySelector(".box");
+    console.log("clientHeight", box.clientHeight); //padding+content 不包含border
+    console.log("offsetHeight", box.offsetHeight); //padding+content+border
+    console.log("clientTop", box.clientTop); //border
+    console.log("offsetTop", box.offsetTop); //距离上一个定位元素（relative/absolute/fixed）的位置
+
+    let scrollBox = document.querySelector(".scrollBox");
+    console.log("scrollHeight", scrollBox.scrollHeight); //总高度
+    console.log("scrollTop", scrollBox.scrollTop); //当前滚动条的滚动高度
+    scrollBox.addEventListener("scroll", function () {
+      console.log(scrollBox.scrollTop);
+    });
+    console.log(window.innerHeight); //浏览器页面可视区域
+    console.log(window.outerHeight); //算上浏览器的导航栏
+  </script>
+</html>

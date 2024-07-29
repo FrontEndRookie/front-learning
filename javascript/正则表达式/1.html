@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="regTest">hide on bush</div>
+  </body>
+  <script>
+    let str = "hide on bush";
+    let a = "u";
+    console.log(/u/.test(str), "字面量正则");
+    console.log(eval(`/${a}/`).test(str), "eval正则"); //也可以支持变量写法，较麻烦
+    let reg = new RegExp(a, "g");
+    console.log(reg.test(str), "对象正则");
+  </script>
+
+  <script>
+    let con = prompt("请输入要替换的字符");
+    let regs = new RegExp(con, "g");
+    let dom = document.querySelector(".regTest");
+    let dealHTML = dom.innerHTML.replace(regs, (res) => {
+      return `<span style="color:red">${res}</span>`;
+    });
+    dom.innerHTML = dealHTML;
+  </script>
+
+  <script>
+    let tes = "020-999999";
+    console.log(/(010|020)\-\d{6,8}/.test(tes));
+  </script>
+</html>

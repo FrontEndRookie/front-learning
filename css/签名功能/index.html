@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="cvs"></canvas>
+    <div style="margin-top: 50px">
+        <button id="clear">清空</button>
+        <button id="back">回退</button>
+        <button id="save">保存</button>
+    </div>
+</body>
+<script>
+    let width = 800
+    let height = 400
+    let isDownin = false
+    let lastX = 0
+    let lastY = 0
+    let cacheData = []
+
+    const cvs = document.getElementById('cvs')
+    const ctx = cvs.getContext('2d')
+    cvs.width = width
+    cvs.height = height
+
+    cvs.addEventListener('mousedown', (e) => {
+        isDownin = true
+        lastX = e.pageX;
+        lastY = e.pageY;
+        let cacheItem = ctx.getImageData(0, 0, width, height);
+        cacheData.push(cacheItem)
+        ctx.moveTo(lastX, lastY)
+    })
+    cvs.addEventListener('mousemove', (e) => {
+        if (!isDownin) return
+        drawLine(e.pageX, e.pageY)
+        ctx.stroke()
+    })
+    cvs.addEventListener('mouseup', (e) => {
+        isDownin = false
+    })
+
+    function drawLine(x, y) {
+        ctx.beginPath();
+        ctx.lineWidth = 8;
+        ctx.strokeStyle = '#fff';
+        ctx.lineCap = 'round'
+        ctx.lineJoin = "round";
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        lastX = x;
+        lastY = y;
+    }
+
+    /* 清空 */
+    const clear = document.getElementById('clear')
+    clear.onclick = () => {
+        ctx.clearRect(0, 0, width, height)
+    }
+
+    /* 回退 */
+    const back = document.getElementById('back')
+    back.onclick = () => {
+        if (cacheData.length === 0) return;
+        ctx.putImageData(cacheData.pop(), 0, 0);
+    }
+
+    const save = document.getElementById('save')
+    save.onclick = () => {
+        cvs.toBlob((blob) => {
+            const a = document.createElement('a');
+            document.body.append(a);
+            a.download = `签名.png`;
+            a.href = URL.createObjectURL(blob);
+            a.click();
+            a.remove();
+        });
+    }
+
+</script>
+<style>
+    #cvs {
+        background-color: #000;
+        background: #000;
+
+    }
+
+    body {
+        height: 100vh;
+        background-color: rgb(26, 25, 25);
+
+    }
+</style>
+
+</html>

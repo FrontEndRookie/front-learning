@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <input type="file" id="inputFile" accept="video/*">
+</div>
+<script type="text/javascript" src="https://unpkg.com/mediainfo.js@0.1.4/dist/mediainfo.min.js"></script>
+<script>
+    //主要时获取视频编码，有些浏览器不支持某些视频编码
+    function getFileEncodeInfo(file) {
+        return new Promise((fileEncodeResolve, fileEncodeReject) => {
+            //format结果值的格式（选择：object，JSON，XML，HTML或text）
+            MediaInfo({ format: 'object' }, (mediainfo) => {
+                const getSize = () => file.size
+                const readChunk = (chunkSize, offset) =>
+                    new Promise((resolve, reject) => {
+                        const reader = new FileReader()
+                        reader.onload = (event) => {
+                            if (event.target.error) {
+                                reject(event.target.error)
+                            }
+                            resolve(new Uint8Array(event.target.result))
+                        }
+                        reader.readAsArrayBuffer(file.slice(offset, offset + chunkSize))
+                    })
+                mediainfo.analyzeData(getSize, readChunk).then((result) => {
+                    fileEncodeResolve({
+                        encodeFormat:result.media.track[1].Format,
+                        result
+                    });
+                }).catch((error) => {
+                    fileEncodeReject(error);
+                })
+            })
+        })
+    }
+ 
+    document.getElementById('inputFile').addEventListener('change', async (e) => {
+        const file = e.target.files[0]
+        try {
+            const fileEncodeInfo = await getFileEncodeInfo(file);
+            console.log(fileEncodeInfo)
+            //AVC各大浏览器都支持
+            if(fileEncodeInfo.encodeFormat!=='AVC'){
+                console.log('目前只支持AVC(h264)视频编码格式')
+            }else{
+                console.log('视频编码格式正常')
+            }
+        }catch (error) {
+            console.log('获取视频编码信息失败：',error)
+        }
+    })
+</script>
+</body>
+</html>

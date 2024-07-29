@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="progress"></div>
+    <div class="progress2"></div>
+</body>
+<style>
+.progress2 {    
+    --r1: 154%;
+    --r2: 68.5%;
+    width:60px;
+    height:60px;
+    border-radius: 50%; 
+    background:
+      radial-gradient(var(--r1) var(--r2) at top ,#0000 79.5%,#269af2 80%) center left,
+      radial-gradient(var(--r1) var(--r2) at bottom,#269af2 79.5%,#0000 80%) center center,
+      radial-gradient(var(--r1) var(--r2) at top ,#0000 79.5%,#269af2 80%) center right,
+      #ccc;
+    background-size: 50.5% 220%;
+    background-position: -100% 0%,0% 0%,100% 0%;
+    background-repeat:no-repeat;
+    animation:p9 4s infinite linear;
+  }
+  @keyframes p9 {
+      33%  {background-position:    0% 33% ,100% 33% ,200% 33% }
+      66%  {background-position: -100%  66%,0%   66% ,100% 66% }
+      100% {background-position:    0% 100%,100% 100%,200% 100%}
+  }
+</style>
+ 
+<style>
+    .progress {
+  width:80px;
+  height:40px;
+  border:2px solid #000;
+  padding:3px;
+  background: 
+    repeating-linear-gradient(90deg,#000 0 10px,#0000 0 16px) 
+    0/0% no-repeat content-box content-box;
+  position: relative;
+  animation:p5 2s infinite steps(6);
+}
+.progress-5::before {
+  content:"";
+  position: absolute;
+  top: 50%;
+  left:100%;
+  transform: translateY(-50%);
+  width:10px;
+  height: 10px;
+  border: 2px solid #000;
+}
+@keyframes p5 {
+    100% {background-size:120%}
+}
+
+
+</style>
+</html>

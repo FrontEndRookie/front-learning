@@ -1,0 +1,74 @@
+body {
+  margin: 0;
+}
+.commentList {
+  margin: 0 18vw;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.commentList .commentCol {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.commentList .commentBox {
+  position: relative;
+  padding: 24px 16px 16px;
+  background: #ffffff;
+  box-shadow: 0px 0px 24px 0px rgba(81, 81, 86, 0.05);
+  border-radius: 8px 8px 8px 8px;
+  opacity: 1;
+  border: 1px solid #eeeeee;
+}
+.commentList .commentBox::after {
+  position: absolute;
+  content: 'P';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FF6154;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  right: 12px;
+  bottom: 12px;
+}
+.commentList .commentBox .comment {
+  font-size: 16px;
+  font-family: PingFang SC, PingFang SC;
+  font-weight: 600;
+  color: #000000;
+  line-height: 24px;
+  text-indent: 10px;
+}
+.commentList .commentBox .comment::before {
+  content: '"';
+  color: #583EFCFF;
+  font-size: 25px;
+  font-weight: bolder;
+  position: absolute;
+  transform: translate(-30px, 5px);
+  font-style: italic;
+  text-align: left;
+}
+.commentList .commentBox .comment::after {
+  content: '"';
+  color: #583EFCFF;
+  font-size: 25px;
+  font-weight: bolder;
+  position: absolute;
+  transform: translate(-10px, 5px);
+  font-style: italic;
+}
+.commentList .commentBox .commentator {
+  margin-top: 16px;
+  font-size: 12px;
+  font-family: PingFang SC, PingFang SC;
+  font-weight: 400;
+  color: #000000;
+  line-height: 18px;
+}

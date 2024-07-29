@@ -1,0 +1,63 @@
+{
+  "name": "webpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "sideEffects": [
+    "*.css"
+  ],
+  "//": "sideEffects设置指定文件为副作用文件，使webpack打包时即使导入文件后，文件没有被使用，也不会删除该文件",
+  "scripts": {
+    "start": "npm run dev & http-server dist",
+    "dev": "webpack -c ./config/webpack.config.js --env development",
+    "build": "webpack -c ./config/webpack.config.js --env production"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.20.5",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.20.2",
+    "autoprefixer": "^10.4.13",
+    "babel-loader": "^9.1.0",
+    "core-js": "^3.26.1",
+    "css-loader": "^6.7.2",
+    "css-minimizer-webpack-plugin": "^4.2.2",
+    "csv-loader": "^3.0.5",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.26.0",
+    "exports-loader": "^4.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "http-server": "^14.1.1",
+    "husky": "^8.0.2",
+    "imports-loader": "^4.0.1",
+    "json5": "^2.2.1",
+    "less-loader": "^11.1.0",
+    "mini-css-extract-plugin": "^2.7.2",
+    "postcss-loader": "^7.0.2",
+    "postcss-nested": "^6.0.0",
+    "style-loader": "^3.3.1",
+    "terser-webpack-plugin": "^5.3.6",
+    "toml": "^3.0.0",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0",
+    "webpack-bundle-analyzer": "^4.7.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1",
+    "webpack-merge": "^5.8.0",
+    "workbox-webpack-plugin": "^6.5.4",
+    "xml-loader": "^1.2.1",
+    "yaml": "^2.1.3"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}

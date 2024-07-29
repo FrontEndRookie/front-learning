@@ -1,0 +1,6 @@
+db:
+  user: root #账号
+  host: localhost #主机
+  port: 3306 #端口
+  password: "sakura3344" #密码 一定要字符串
+  database: yingshu # 库

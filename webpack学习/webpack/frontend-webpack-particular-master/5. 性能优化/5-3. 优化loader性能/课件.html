@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>&#x4f18;&#x5316;loader&#x6027;&#x80fd; &lbrace;ignore&rbrace;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="优化loader性能-ignore">优化loader性能 {ignore}</h1>
+<h2 id="进一步限制loader的应用范围">进一步限制loader的应用范围</h2>
+<p>思路是：对于某些库，不使用loader</p>
+<p>例如：babel-loader可以转换ES6或更高版本的语法，可是有些库本身就是用ES5语法书写的，不需要转换，使用babel-loader反而会浪费构建时间</p>
+<p>lodash就是这样的一个库</p>
+<blockquote>
+<p>lodash是在ES5之前出现的库，使用的是ES3语法</p>
+</blockquote>
+<p>通过<code>module.rule.exclude</code>或<code>module.rule.include</code>，排除或仅包含需要应用loader的场景</p>
+<pre><code class="language-js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+    <span class="hljs-attr">module</span>: {
+        <span class="hljs-attr">rules</span>: [
+            {
+                <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.js$/</span>,
+                <span class="hljs-attr">exclude</span>: <span class="hljs-regexp">/lodash/</span>,
+                <span class="hljs-attr">use</span>: <span class="hljs-string">&quot;babel-loader&quot;</span>
+            }
+        ]
+    }
+}
+</code></pre>
+<p>如果暴力一点，甚至可以排除掉<code>node_modules</code>目录中的模块，或仅转换<code>src</code>目录的模块</p>
+<pre><code class="language-js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+    <span class="hljs-attr">module</span>: {
+        <span class="hljs-attr">rules</span>: [
+            {
+                <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.js$/</span>,
+                <span class="hljs-attr">exclude</span>: <span class="hljs-regexp">/node_modules/</span>,
+                <span class="hljs-comment">//或</span>
+                <span class="hljs-comment">// include: /src/,</span>
+                <span class="hljs-attr">use</span>: <span class="hljs-string">&quot;babel-loader&quot;</span>
+            }
+        ]
+    }
+}
+</code></pre>
+<blockquote>
+<p>这种做法是对loader的范围进行进一步的限制，和noParse不冲突，想想看，为什么不冲突</p>
+</blockquote>
+<h2 id="缓存loader的结果">缓存loader的结果</h2>
+<p>我们可以基于一种假设：如果某个文件内容不变，经过相同的loader解析后，解析后的结果也不变</p>
+<p>于是，可以将loader的解析结果保存下来，让后续的解析直接使用保存的结果</p>
+<p><code>cache-loader</code>可以实现这样的功能</p>
+<pre><code class="language-js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = {
+  <span class="hljs-attr">module</span>: {
+    <span class="hljs-attr">rules</span>: [
+      {
+        <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.js$/</span>,
+        <span class="hljs-attr">use</span>: [<span class="hljs-string">&#x27;cache-loader&#x27;</span>, ...loaders]
+      },
+    ],
+  },
+};
+</code></pre>
+<p>有趣的是，<code>cache-loader</code>放到最前面，却能够决定后续的loader是否运行</p>
+<p>实际上，loader的运行过程中，还包含一个过程，即<code>pitch</code></p>
+<p><img src="file:////Users/xuminghui/Downloads/webpack/frontend-webpack-particular-master/5. 性能优化/5-3. 优化loader性能/assets/2020-02-21-13-32-36.png" alt=""></p>
+<p><code>cache-loader</code>还可以实现各自自定义的配置，具体方式见文档</p>
+<h2 id="为loader的运行开启多线程">为loader的运行开启多线程</h2>
+<p><code>thread-loader</code>会开启一个线程池，线程池中包含适量的线程</p>
+<p>它会把后续的loader放到线程池的线程中运行，以提高构建效率</p>
+<p>由于后续的loader会放到新的线程中，所以，后续的loader不能：</p>
+<ul>
+<li>使用 webpack api 生成文件</li>
+<li>无法使用自定义的 plugin api</li>
+<li>无法访问 webpack options</li>
+</ul>
+<blockquote>
+<p>在实际的开发中，可以进行测试，来决定<code>thread-loader</code>放到什么位置</p>
+</blockquote>
+<p><strong>特别注意</strong>，开启和管理线程需要消耗时间，在小型项目中使用<code>thread-loader</code>反而会增加构建时间</p>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>

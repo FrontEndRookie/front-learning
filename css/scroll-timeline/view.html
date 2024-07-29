@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .progress{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background-color: #F44336;
+            transform-origin: 0 50%;
+            animation: grow-progress 3s linear;
+            animation-timeline: --scrollContainer;
+        }
+        @keyframes grow-progress {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+        .content{
+            height:100vh;
+            width: 50vw;
+            font-size: 100px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1000px;
+            background-color: yellowgreen;
+            animation: appear 3s linear;
+            animation-timeline: view(100% 0);
+
+        }
+        .scroll{
+            height:90vh;
+            overflow-y: scroll;
+            scroll-timeline: --scrollContainer y;
+        }
+        .contentBox{
+            height: 90vh;
+            overflow-y: scroll;
+          
+            /* animation-timeline: --viewContainer; */
+        }
+        @keyframes appear {
+    from {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="scroll">
+        <div class="progress"></div>
+        <div class="contentBox">
+             <div class="content">1</div>
+            <div class="content">2</div>
+            <div class="content">3</div>
+            <div class="content">4</div>
+        </div>
+           
+    </div>
+</body>
+</html>

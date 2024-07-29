@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebpack_federation=self.webpackChunkwebpack_federation||[]).push([[16],{16:(e,t,n)=>{n.r(t),n.d(t,{default:()=>a});const a=()=>{const e=document.createElement("h1");return e.textContent="nav",e}}}]);

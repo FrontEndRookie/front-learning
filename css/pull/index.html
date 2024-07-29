@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="commentList">
+        <div class="commentCol">
+            <div class="commentBox">
+                <div class="comment">This product deserves all the praise. Sharing it with friends.</div>
+                <div class="commentator">-- AR Bell</div>
+            </div>
+            <div class="commentBox">
+                <div class="comment">
+                    I often find myself requiring AI-styled avatars for various platforms. This need led me to discover Xmirror.ai. I've found it to be user-friendly and extremely beneficial for my purposes.
+                </div>
+                <div class="commentator">-- AR Bell</div>
+            </div>
+        </div>
+        <div class="commentCol">
+            <div class="commentBox">
+                <div class="comment">
+                    This is awesome and I can't believe how easy it is to use! Keep up the good work!
+                </div>
+                <div class="commentator">-- AR Bell</div></div>
+            <div class="commentBox">
+                <div class="comment">
+                    Amazed by the number of portrait styles you can use to get AI Photos.
+                </div>
+                <div class="commentator">-- AR Bell</div></div>
+            <div class="commentBox">
+                <div class="comment">
+                    This tool looks very promising. Excited to use.
+                </div>
+                <div class="commentator">-- AR Bell</div></div>
+        </div>
+        <div class="commentCol">
+            <div class="commentBox">
+                <div class="comment">
+                    I'm looking forward to seeing how this AI image generator changes the game. I'm sure it will be a great resource for many creatives out.
+                </div>
+                <div class="commentator">-- AR Bell</div></div>
+            <div class="commentBox">
+                <div class="comment">
+                    There was a problem - found a solution.
+                </div>
+                <div class="commentator">-- AR Bell</div></div>
+        </div>
+        <div class="commentCol">
+            <div class="commentBox">
+                <div class="comment">
+                    Amazing product! Good luck
+                </div>
+               <div class="commentator">-- AR Bell</div></div>
+            <div class="commentBox">
+                <div class="comment">
+                    Amazing experience and very easy to use.Loved my images
+                </div>
+                <div class="commentator">-- AR Bell</div></div>
+            <div class="commentBox">
+                <div class="comment">
+                    It looks so great!
+                </div>
+                <div class="commentator">-- AR Bell</div></div>
+        </div>
+            
+        
+    </div>
+    <script>
+        function getEveryColHeight(){
+            let childNodeArray = []
+            let childNodesHeightArray = []
+            for(let i of document.getElementsByClassName('commentCol')){
+                childNodeArray.push(i.childNodes)
+            }
+            childNodeArray.forEach((item,index)=>{
+                let result = 0
+                let commentBoxNumber = 0
+                for(let i of item){
+                    if(i.className == 'commentBox'){
+                        result+=i.offsetHeight
+                        commentBoxNumber++
+                    }
+                }
+                childNodesHeightArray[index] = result+(commentBoxNumber-1)*16
+            })
+            return childNodesHeightArray
+        }
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function sameObj(obj1,obj2){
+        if(typeof obj1 != 'object' || typeof obj2 != 'object'){
+            return false
+        }
+        const key1 = Object.keys(obj1)
+        const key2 = Object.keys(obj2)
+        if(key1.length != key2.length){
+            return false
+        }
+        for(let val of key1){
+             if(obj1[val] != obj2[val]  && !sameObj(obj1[val],obj2[val])){
+                return false
+            }
+        }
+        return true
+    }
+    console.log(sameObj({a:1,b:2,c:{d:[1,2,3]}},{a:1,b:2,c:{d:[1,2,3]}}))
+</script>
+</html>

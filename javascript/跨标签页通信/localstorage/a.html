@@ -1,0 +1,12 @@
+<script>
+  let index = 0;
+  setInterval(() => {
+    localStorage.moment = `moment ${index++}`;
+  }, 1000);
+
+  window.addEventListener("storage", (e) => {
+    console.log("被修改的键: ", e.key);
+    console.log("旧值: ", e.oldValue);
+    console.log("新值: ", e.newValue);
+  });
+</script>
