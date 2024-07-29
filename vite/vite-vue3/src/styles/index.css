@@ -1,6 +1,0 @@
-:root {
-  --primary-color: pink;
-}
-.word {
-  color: var(--primary-color);
-}
