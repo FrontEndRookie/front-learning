@@ -1,0 +1,18 @@
+:root {
+  --rx: 0deg;
+  --ry: 0deg;
+}
+img {
+  width: 500px;
+  height: 700px;
+  margin: 50px 0 0 50px;
+  transition: 0.2s;
+}
+
+img:hover {
+  box-shadow: 3px 3px 10px pink, -3px -3px 10px orange;
+  transform: perspective(500px) rotateX(var(--rx)) rotateY(var(--ry));
+}
+
+div {
+}
