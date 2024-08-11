@@ -63,7 +63,7 @@ export const routes = [
   {
     path: "/",
     name: "test",
-    component: import("../components/learning/14.transitionGroup.vue"),
+    component: import("../components/learning/25.scoped.vue"),
     meta: {
       title: "title",
       icon: "",

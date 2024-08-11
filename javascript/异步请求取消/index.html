@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.7.2/axios.min.js"></script>
+    <title>请求取消</title>
+  </head>
+  <body>
+    <button onclick="cancel()">cancel</button>
+  </body>
+  <script>
+    //axios - cancelToken
+    const source = axios.CancelToken.source();
+    axios
+      .get("http://localhost:3008", { cancelToken: source.token })
+      .then((response) => {
+        /* 处理响应 */
+      })
+      .catch((error) => {
+        if (axios.isCancel(error)) {
+          console.log("请求被取消", error.message);
+        } else {
+          console.log("请求出错", error.message);
+        }
+      });
+    // 取消请求时调用
+    function cancel() {
+      source.cancel("请求取消的原因");
+    }
+  </script>
+  <script>
+    // fetch - AbortController
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    const fetchPromise = fetch("http://localhost:3008", { signal });
+
+    // 在需要取消请求的时候
+    function cancel() {
+      controller.abort();
+    }
+    fetchPromise.catch((e) => {
+      if (e.name === "AbortError") {
+        console.log("Fetch request aborted");
+      } else {
+        console.error("Fetch error:", e);
+      }
+    });
+  </script>
+</html>

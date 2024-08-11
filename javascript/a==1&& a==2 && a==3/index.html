@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    // == 双等号判断相等时
+    // 1. 一边有NaN直接false
+    // 2. 如果两端是null或者undefined必须相等（全null或者全undefined）或者互相比较（一边null一边undefined），否则false
+    // 3. 类型相同时比较值
+    // 4. 如果都是原始类型转换成数字进行比较
+    // 5.一端对象一端原始类型则把对象转换成原始类型再比较 - 1.[Symbol.toPrimitive] -> 2.valueOf -> 3.toString
+
+    var a = {
+      value: 1,
+      // [Symbol.toPrimitive]() {
+      //   return this.value++;
+      // },
+      // toString() {
+      //   return this.value++;
+      // },
+      valueOf() {
+        return this.value++;
+      },
+    };
+    console.log(a == 1 && a == 2 && a == 3);
+  </script>
+</html>
