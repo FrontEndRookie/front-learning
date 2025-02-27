@@ -1,6 +1,6 @@
 type CardList = Card[];
 type Card = {
-  num: string | number;
+  num: CardNum;
   color: CardColor;
 };
 enum CardColor {
@@ -29,6 +29,7 @@ function getAllCards(): CardList {
   const cards: CardList = [];
   const colors = Object.values(CardColor);
   const nums = Object.values(CardNum);
+  console.log(colors, nums);
   for (let j of nums) {
     for (let i of colors) {
       cards.push({

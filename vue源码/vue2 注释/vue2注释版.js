@@ -10198,7 +10198,7 @@ update 方法通过检查 this.lazy 和 this.sync 属性的值来决定如何处
    * This only gets called for lazy watchers.
    */
   Watcher.prototype.evaluate = function evaluate() {
-    debugger;
+    // debugger;
     this.value = this.get();
     this.dirty = false;
   };
@@ -10669,6 +10669,7 @@ if (!isSSR) {
   function createComputedGetter(key) {
     return function computedGetter() {
       var watcher = this._computedWatchers && this._computedWatchers[key];
+      console.log(watcher);
       if (watcher) {
         if (watcher.dirty) {
           watcher.evaluate();
@@ -14503,6 +14504,7 @@ hook 函数是 Vue.js 中一种特殊的函数，它可以让开发者在某些�
       }
       if (isUndef(vnode.text)) {
         if (isDef(oldCh) && isDef(ch)) {
+          console.log(oldCh, ch, oldCh == ch);
           if (oldCh !== ch) {
             updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly);
           }

@@ -41,7 +41,7 @@ const shallowChange = () => {
 
 //自定义ref
 function myRef<T>(value: T) {
-  let timer: any;
+  let timer: ReturnType<typeof setTimeout> | null;
   return customRef((track, trigger) => {
     return {
       get() {
@@ -49,7 +49,7 @@ function myRef<T>(value: T) {
         return value;
       },
       set(newVal) {
-        clearTimeout(timer);
+        clearTimeout(timer!);
         timer = setTimeout(() => {
           console.log("chufa");
           value = newVal;

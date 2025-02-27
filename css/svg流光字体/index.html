@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <svg width="900" height="300">
+        <g>
+          <text class="text0" x="40" y="200">HIDE ON BUSH</text>
+          <text class="text1" x="40" y="200">HIDE ON BUSH</text>
+          <text class="text2" x="40" y="200">HIDE ON BUSH</text>
+          <text class="text3" x="40" y="200">HIDE ON BUSH</text>
+        </g>
+      </svg>
+    </div>
+  </body>
+  <style>
+    svg {
+      background: rgba(0, 0, 0, 0.4);
+    }
+    text {
+      fill: none;
+      font-size: 120px;
+      stroke-width: 5px;
+      stroke-dasharray: 200;
+    }
+    .text0 {
+      stroke: pink;
+      animation: text0 10s infinite;
+    }
+    .text1 {
+      stroke: purple;
+      animation: text1 10s infinite;
+    }
+    .text2 {
+      stroke: skyblue;
+      animation: text2 10s infinite;
+    }
+    .text3 {
+      stroke: yellowgreen;
+      animation: text3 10s infinite;
+    }
+    @keyframes text0 {
+      0%,
+      100% {
+        stroke-dasharray: 190;
+      }
+      50% {
+        stroke-dasharray: 40;
+      }
+    }
+    @keyframes text1 {
+      0%,
+      100% {
+        stroke-dasharray: 20;
+      }
+      50% {
+        stroke-dasharray: 260;
+      }
+    }
+    @keyframes text2 {
+      0%,
+      100% {
+        stroke-dasharray: 300;
+      }
+      50% {
+        stroke-dasharray: 10;
+      }
+    }
+    @keyframes text3 {
+      0%,
+      100% {
+        stroke-dasharray: 30;
+      }
+      50% {
+        stroke-dasharray: 240;
+      }
+    }
+  </style>
+</html>

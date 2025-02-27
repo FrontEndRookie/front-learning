@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>用代理处理动态属性值</title>
+    <style></style>
+  </head>
+
+  <body></body>
+  <script>
+    var obj = new Proxy(
+      { total: 0 },
+      {
+        get(target, val, receive) {
+          if (val === Symbol.toPrimitive) {
+            return () => target.total;
+          }
+          Reflect.set(target, "total", target.total + Number(val));
+
+          console.log(target, val, receive);
+          return receive;
+        },
+      }
+    );
+    console.log(obj[1][2][3] + 4);
+  </script>
+</html>
