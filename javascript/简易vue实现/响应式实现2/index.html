@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      {{msg}}
+      <div>{{ msg }}</div>
+      <input type="text" v-model="msg" />
+      <div>{{ msg2 }}</div>
+      <input type="text" v-model="msg2" />
+    </div>
+  </body>
+  <script type="module">
+    import { Vue } from "./myVue/vue.js";
+    new Vue({
+      el: "#app",
+      data: {
+        msg: "hello world",
+        msg2: "hi",
+      },
+    });
+  </script>
+</html>
