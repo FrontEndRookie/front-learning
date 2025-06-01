@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+      min-height: 500vh;
+      background-color: rgb(139, 201, 228);
+      animation: body 1s linear;
+      animation-play-state: paused;
+      animation-delay: calc(var(--scroll) * -1s);
+      animation-fill-mode: forwards;
+    }
+    @keyframes body {
+      to {
+        background-color: rgb(19, 48, 97);
+      }
+    }
+
+    .box {
+      width: 300px;
+      height: 300px;
+      border-radius: 10px;
+      background: #df685b;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: box 1s linear;
+      animation-play-state: paused;
+      animation-delay: calc(var(--scroll) * -1s);
+      animation-fill-mode: forwards;
+    }
+    @keyframes box {
+      to {
+        transform: translate(-50%, -50%) rotate(180deg);
+      }
+    }
+  </style>
+  <body>
+    <div class="box"></div>
+  </body>
+  <script>
+    // 通过动画暂停 + 设置负数的animation-delay来实现
+    window.addEventListener(
+      "scroll",
+      () => {
+        document.body.style.setProperty(
+          "--scroll",
+          window.pageYOffset / (document.body.offsetHeight - window.innerHeight)
+        );
+      },
+      false
+    );
+  </script>
+</html>
+
