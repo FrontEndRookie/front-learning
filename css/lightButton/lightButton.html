@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>button light</title>
+</head>
+<style>
+  :root {
+    --left:100px;
+    --top:10px
+  }
+  body{
+    background-color: #000;
+  }
+  .box{
+    margin:500px;
+    width: 160px;
+    height: 50px;
+    color:aliceblue;
+    border-radius: 30px;
+    text-align: center;
+    line-height: 50px;
+    position: relative;
+  }
+
+  .shine-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    padding: 1px;
+    pointer-events: none;
+    border-radius: 9999px;
+    -webkit-border-radius: 9999px;
+    transform: translateZ(0.0001px);
+    will-change: transform;
+    box-sizing: border-box;
+  }
+  .shine-border::before {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    content: "";
+    border-radius: 9999px;
+    -webkit-border-radius: 9999px;
+    box-shadow: inset -0.15625vw -0.260417vw 1.5625vw rgba(202, 180, 159, 0.5);
+    -webkit-box-shadow: inset -0.15625vw -0.260417vw 1.5625vw rgba(202, 180, 159, 0.5);
+    transform: translateZ(-0.0001px);
+    will-change: transform;
+}
+.shine-border::after {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: "";
+    border-radius: 9999px;
+    -webkit-border-radius: 9999px;
+    background-color: #000;
+}
+.shine-inset {
+    width: 5.208333vw;
+    height: 5.208333vw;
+}
+ .shine-item {
+    transform: translate3d(calc(var(--left) - 50%), calc(var(--top) - 50%), 0);
+    opacity: 1;
+}
+ .shine-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    box-sizing: border-box;
+}
+.shine-item::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    background-image: radial-gradient(closest-side, #fff, rgba(230, 204, 179, 0.82) 35%, rgba(101, 90, 80, 0));
+}
+.shine-inset::after {
+    background-image: radial-gradient(closest-side, #fff6ee, #ebd8c7 20%, rgba(223, 200, 178, 0.68) 60%, rgba(129, 110, 91, 0));
+}
+.shine-item::after {
+    transform: scale(1);
+}
+.shine-background {
+    width: 5.8125vw;
+    height: 5.8125vw;
+}
+.shine-background::after {
+    opacity: 0.4;
+}
+</style>
+<body>
+    <div class="box" id="yourElementId">
+      hide on bush
+      <div class="shine-item shine-background"></div>
+      <div class="shine-border">
+      <div class="shine-item shine-inset"></div>
+
+      </div>
+    </div>
+</body>
+<script>
+    // 获取目标 DOM 元素
+const targetElement = document.getElementById('yourElementId'); // 替换为你的元素 ID
+function throttle(func, wait) {
+  let lastTime = 0;
+  return function(...args) {
+    const now = Date.now();
+    if (now - lastTime >= wait) {
+      lastTime = now;
+      func.apply(this, args);
+    }
+  };
+}
+    const rect = targetElement.getBoundingClientRect(); // 获取元素的位置信息
+function move(event) {
+    // 获取鼠标相对于目标元素的偏移量
+    const mouseX = event.clientX - rect.left; // 鼠标相对于元素左边的距离
+    const mouseY = event.clientY - rect.top;  // 鼠标相对于元素上边的距离
+
+    // 输出结果（可以根据需要进行其他操作）
+    console.log(`鼠标相对于元素左边的距离: ${mouseX}px`);
+    console.log(`鼠标相对于元素上边的距离: ${mouseY}px`);
+    document.documentElement.style.setProperty('--left', ''+mouseX+'px');
+    document.documentElement.style.setProperty('--top', ''+mouseY+'px');
+
+}
+// 监听 mousemove 事件
+targetElement.addEventListener('mousemove', move);
+</script>
+<style>
+   
+</style>
+</html>
