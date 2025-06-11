@@ -12,6 +12,7 @@
   }
   body{
     background-color: #000;
+    overflow: hidden;
   }
   .box{
     margin:500px;
@@ -67,8 +68,8 @@
     background-color: #000;
 }
 .shine-inset {
-    width: 5.208333vw;
-    height: 5.208333vw;
+    width: 6.208333vw;
+    height: 6.208333vw;
 }
  .shine-item {
     transform: translate3d(calc(var(--left) - 50%), calc(var(--top) - 50%), 0);
@@ -141,7 +142,11 @@ function move(event) {
 
 }
 // 监听 mousemove 事件
-targetElement.addEventListener('mousemove', move);
+targetElement.addEventListener('mousemove', throttle(move,50));
+targetElement.addEventListener('mouseout', ()=>{
+  document.documentElement.style.setProperty('--left', ''+9999999+'px');
+    document.documentElement.style.setProperty('--top', ''+9999999+'px');
+});
 </script>
 <style>
    

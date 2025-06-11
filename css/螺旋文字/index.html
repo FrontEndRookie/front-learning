@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="spiral" class="spiral"></div>
+    <div id="spiral2" class="spiral"></div>
+</body>
+<style>
+    body, html{
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #040509;
+  overflow: hidden;
+  font-size: 62.5%
+}
+
+/* The @property CSS at-rule is part of the CSS Houdini umbrella of APIs. It */
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.spiral{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: absolute;
+  color: #e0ecef;
+  font-family: "sans-serif";
+}
+
+@keyframes spiral{
+  0%{
+    --angle: 0deg;
+  }
+  100%{
+    --angle: 360deg;
+  }
+}
+
+.character{
+  font-size: 2.8rem;
+  color: white;
+  text-transform: uppercase;
+  transform: translateY(calc(sin(var(--angle)) * 100px)) scale(calc(cos(var(--angle)) * 0.5 + 0.5));
+  animation: spiral 4s linear infinite;
+}
+
+@media (max-width: 490px){
+  .character{
+    font-size: 2.2rem
+  }
+}
+</style>
+<script>
+    // https://codepen.io/lucasfernandodev/pen/RwdaeGZ
+
+let isFirefox = typeof InstallTrigger !== 'undefined';
+const words = "螺旋文字滚动特效";
+
+let ANGLE = 360;
+const ANIMATION_DURATION = 4000;
+
+const animation = () => {
+  ANGLE -= 1; // Incremento do ângulo
+  document.querySelectorAll(".spiral *").forEach((el, i) => {
+    
+    const translateY = Math.sin(ANGLE * (Math.PI / 120)) * 100;
+    const scale = Math.cos(ANGLE * (Math.PI / 120)) * 0.5 + 0.5;
+    
+    
+    const offset = parseInt(el.dataset.offset);
+    const delay = i * (ANIMATION_DURATION / 16) - offset;
+
+    setTimeout(() => {
+      el.style.transform = `translateY(${translateY}px) scale(${scale})`;
+    }, delay);
+  });
+
+  requestAnimationFrame(animation);
+};
+
+const characters = words.split("").forEach((char, i) => {
+  const createElement = (offset) => {
+    const div = document.createElement("div");
+    div.innerText = char;
+    div.classList.add("character");
+    div.setAttribute("data-offset", offset);
+    div.style.animationDelay = `-${i * (ANIMATION_DURATION / 16) - offset}ms`
+    return div;
+  };
+
+  document.querySelector("#spiral").append(createElement(0));
+  document
+    .querySelector("#spiral2")
+    .append(createElement((isFirefox ? 1 : -1) * (ANIMATION_DURATION / 2)));
+});
+
+function supportsCSSProperty(property) {
+  return CSS.supports(property, 'initial');
+}
+// @property CSS doesn't work in Firefox, so it must be animated using JavaScript.
+if(isFirefox || !supportsCSSProperty('--my-property')){
+  animation();
+}
+
+</script>
+</html>
